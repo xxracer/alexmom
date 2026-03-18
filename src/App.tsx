@@ -100,6 +100,16 @@ const DICTIONARY = {
       success_title: 'Request Received!',
       success_msg: 'Thank you for reaching out. Alely will contact you personally within 24 hours.',
       success_button: 'Send Another Request',
+      insurances_label: 'Insurance Plans Selected',
+      insurances_none: 'No insurance plan selected',
+    },
+    insurances: {
+      badge: 'Accepted Insurance Plans',
+      title: 'Insurance Plans',
+      title_accent: 'We Work With',
+      subtitle: 'We work with the most trusted insurance carriers so you can get the coverage that best fits your needs.',
+      toggle_hint: 'Select the plans your client uses — they will be included in the request',
+      cta: 'Continue to Contact Form',
     },
     footer: {
       desc: 'Alely Medrano: Leading independent Medicare Broker specializing in Advantage, Part D, and Supplemental plans since 2015.',
@@ -197,6 +207,16 @@ const DICTIONARY = {
       success_title: '¡Solicitud Recibida!',
       success_msg: 'Gracias por contactarnos. Alely se comunicará contigo personalmente en menos de 24 horas.',
       success_button: 'Enviar otra solicitud',
+      insurances_label: 'Planes de Seguro Seleccionados',
+      insurances_none: 'Ningún plan de seguro seleccionado',
+    },
+    insurances: {
+      badge: 'Planes de Seguro Aceptados',
+      title: 'Seguros',
+      title_accent: 'Con los que Trabajamos',
+      subtitle: 'Trabajamos con los aseguradores más confiables para que puedas obtener la cobertura que mejor se adapta a tus necesidades.',
+      toggle_hint: 'Selecciona los planes que usa tu cliente — se incluirán en la solicitud',
+      cta: 'Continuar al Formulario de Contacto',
     },
     footer: {
       desc: 'Alely Medrano: Asesora independiente líder en Medicare, especializada en planes Advantage, Parte D y Suplementarios desde 2015.',
@@ -297,7 +317,7 @@ const ImageCarousel = ({ images, alt }: { images: string[]; alt: string }) => {
   };
 
   return (
-    <div className="relative w-full h-[600px] group">
+    <div className="relative w-full h-[350px] sm:h-[450px] md:h-[600px] group">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
@@ -406,6 +426,52 @@ const FAQSection = React.memo(({ t }: { t: any }) => {
     </section>
   );
 });
+
+const LanguageModal = ({ onSelect }: { onSelect: (lang: 'en' | 'es') => void }) => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-xl p-4"
+  >
+    <motion.div
+      initial={{ scale: 0.9, opacity: 0, y: 20 }}
+      animate={{ scale: 1, opacity: 1, y: 0 }}
+      transition={{ type: "spring", damping: 25, stiffness: 300 }}
+      className="bg-white rounded-[3rem] p-10 lg:p-16 max-w-2xl w-full shadow-2xl relative overflow-hidden text-center"
+    >
+      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent-red via-primary to-accent-red" />
+      
+      <motion.div 
+        animate={{ rotate: [0, 10, -10, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-10 text-primary"
+      >
+        <Globe className="w-10 h-10" />
+      </motion.div>
+
+      <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4 tracking-tight">Select Your Language</h2>
+      <p className="text-slate-500 font-medium mb-12 text-lg">Selecciona tu idioma para continuar</p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <button
+          onClick={() => onSelect('en')}
+          className="group relative bg-slate-50 hover:bg-primary text-primary hover:text-white p-8 rounded-3xl transition-all duration-500 border border-slate-100 hover:border-primary shadow-sm hover:shadow-xl active:scale-95"
+        >
+          <span className="block text-2xl font-bold mb-1">English</span>
+          <span className="text-sm font-medium opacity-60 group-hover:opacity-80">Medicare Solutions</span>
+        </button>
+        <button
+          onClick={() => onSelect('es')}
+          className="group relative bg-slate-50 hover:bg-accent-red text-primary hover:text-white p-8 rounded-3xl transition-all duration-500 border border-slate-100 hover:border-accent-red shadow-sm hover:shadow-xl active:scale-95"
+        >
+          <span className="block text-2xl font-bold mb-1">Español</span>
+          <span className="text-sm font-medium opacity-60 group-hover:opacity-80">Asesoría de Medicare</span>
+        </button>
+      </div>
+    </motion.div>
+  </motion.div>
+);
 
 const FloatingCTA = ({ t }: { t: any }) => {
   const { scrollY } = useScroll();
@@ -550,15 +616,15 @@ const Header = React.memo(({ onOpenMenu, t, onLanguageToggle, lang }: { onOpenMe
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div style={{ height: headerHeight }} className="flex items-center justify-between">
-          <a href="#" className="flex items-center gap-3 group transition-transform hover:scale-[1.02] active:scale-95" aria-label="Alely Medrano Home">
+          <a href="#" className="flex items-center gap-2 sm:gap-3 group transition-transform hover:scale-[1.02] active:scale-95" aria-label="Alely Medrano Home">
             <img
               src="https://static.wixstatic.com/media/c5947c_15370a549d404494b4a4100f16cd538a~mv2.png/v1/fill/w_200,h_112,al_c,q_85/logo.png"
               alt="Alely Medrano Logo"
-              className="h-9 w-auto"
+              className="h-8 sm:h-9 w-auto"
               width={73}
               height={40}
             />
-            <h1 className="text-xl font-bold tracking-tighter text-primary uppercase leading-none">
+            <h1 className="text-lg sm:text-xl font-bold tracking-tighter text-primary uppercase leading-none">
               Alely <br /> <span className="text-accent-red">Medrano</span>
             </h1>
           </a>
@@ -570,7 +636,7 @@ const Header = React.memo(({ onOpenMenu, t, onLanguageToggle, lang }: { onOpenMe
             <a className="text-[0.75rem] font-bold uppercase tracking-widest text-slate-500 hover:text-primary transition-colors" href="#contact">{t.nav.contact}</a>
           </nav>
 
-          <div className="flex items-center gap-4 lg:gap-8">
+          <div className="flex items-center gap-3 sm:gap-4 lg:gap-8">
             <button
               onClick={onLanguageToggle}
               className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100 transition-colors group"
@@ -579,6 +645,14 @@ const Header = React.memo(({ onOpenMenu, t, onLanguageToggle, lang }: { onOpenMe
               <Globe className="w-4 h-4 text-slate-400 group-hover:text-primary transition-colors" />
               <span className="text-xs font-bold uppercase tracking-widest text-slate-700">ESP | ENG</span>
             </button>
+
+            <a
+              href={`tel:${CONTACT_INFO.phone.replace(/\D/g, '')}`}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 text-accent-red md:hidden border border-slate-200 active:scale-90 transition-transform"
+              aria-label="Call Alely"
+            >
+              <Phone className="w-5 h-5" />
+            </a>
 
             <a
               className="hidden xl:flex items-center gap-2 bg-primary hover:bg-slate-900 text-white px-7 py-3.5 rounded-full font-bold text-sm uppercase tracking-widest transition-all shadow-xl shadow-slate-900/10 active:scale-95"
@@ -590,7 +664,7 @@ const Header = React.memo(({ onOpenMenu, t, onLanguageToggle, lang }: { onOpenMe
 
             <button
               onClick={onOpenMenu}
-              className="p-2 md:hidden text-primary"
+              className="p-1 sm:p-2 md:hidden text-primary active:scale-90 transition-transform"
               aria-label="Open navigation menu"
             >
               <Menu className="w-8 h-8" />
@@ -830,16 +904,16 @@ const About = React.memo(({ t }: { t: any }) => {
   ], []);
 
   return (
-    <section className="py-28 lg:py-48 bg-champagne relative overflow-hidden" id="about">
+    <section className="py-20 lg:py-48 bg-champagne relative overflow-hidden" id="about">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-20 lg:gap-32">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-32">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex-1 relative"
+            className="w-full lg:flex-1 relative"
           >
-            <div className="relative z-10 rounded-[4rem] overflow-hidden shadow-2xl bg-white p-4">
+            <div className="relative z-10 rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-2xl bg-white p-2 md:p-4">
               <ImageCarousel
                 images={carouselImages}
                 alt={t.about.img_alt}
@@ -899,8 +973,214 @@ const About = React.memo(({ t }: { t: any }) => {
   );
 });
 
-const Contact = React.memo(({ t }: { t: any }) => {
+const INSURANCE_CARRIERS = [
+  {
+    id: 'humana', name: 'Humana', color: '#007D69',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Humana_logo.svg/320px-Humana_logo.svg.png',
+  },
+  {
+    id: 'devoted', name: 'Devoted Health', color: '#E63946',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Devoted_Health_logo.svg/320px-Devoted_Health_logo.svg.png',
+  },
+  {
+    id: 'bcbs', name: 'BlueCross BlueShield', color: '#003087',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Blue_Cross_Blue_Shield_Association_logo.svg/320px-Blue_Cross_Blue_Shield_Association_logo.svg.png',
+  },
+  {
+    id: 'memorial', name: 'Memorial Hermann', color: '#6B21A8',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Memorial_Hermann_Health_System_logo.svg/320px-Memorial_Hermann_Health_System_logo.svg.png',
+  },
+  {
+    id: 'ncl', name: 'NCL Health', color: '#7C3AED',
+    logo: null,
+  },
+  {
+    id: 'scan', name: 'SCAN Health Plan', color: '#065F46',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/SCAN_Health_Plan_logo.svg/320px-SCAN_Health_Plan_logo.svg.png',
+  },
+  {
+    id: 'molina', name: 'Molina Healthcare', color: '#15803D',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Molina_Healthcare_logo.svg/320px-Molina_Healthcare_logo.svg.png',
+  },
+  {
+    id: 'wellpoint', name: 'Wellpoint', color: '#1D4ED8',
+    logo: null,
+  },
+  {
+    id: 'aetna', name: 'Aetna', color: '#7E1D3F',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Aetna_logo.svg/320px-Aetna_logo.svg.png',
+  },
+  {
+    id: 'cigna', name: 'Cigna', color: '#1E3A5F',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Cigna_logo.svg/320px-Cigna_logo.svg.png',
+  },
+  {
+    id: 'verda', name: 'Verda Healthcare', color: '#4D7C0F',
+    logo: null,
+  },
+  {
+    id: 'community', name: 'Community Health', color: '#92400E',
+    logo: null,
+  },
+  {
+    id: 'kelsey', name: 'Kelsey-Seybold', color: '#0F172A',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Kelsey-Seybold_Clinic_logo.svg/320px-Kelsey-Seybold_Clinic_logo.svg.png',
+  },
+  {
+    id: 'wellcare', name: 'WellCare', color: '#0369A1',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/WellCare_logo.svg/320px-WellCare_logo.svg.png',
+  },
+  {
+    id: 'united', name: 'UnitedHealthcare', color: '#0077C8',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/UnitedHealth_Group_logo.svg/320px-UnitedHealth_Group_logo.svg.png',
+  },
+];
+
+const InsurancePartners = React.memo(({ t, selected, onToggle }: {
+  t: any;
+  selected: Set<string>;
+  onToggle: (id: string) => void;
+}) => (
+  <section className="py-28 lg:py-40 bg-slate-50 relative overflow-hidden" id="insurances">
+    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+    <div className="absolute inset-0 grid-hairline opacity-5 pointer-events-none" />
+
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* Header */}
+      <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-accent-red/5 text-accent-red text-[0.65rem] font-bold tracking-widest uppercase mb-6"
+        >
+          <ShieldPlus className="w-3.5 h-3.5" />
+          {t.insurances.badge}
+        </motion.div>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-primary mb-6 leading-tight"
+        >
+          {t.insurances.title}{' '}
+          <span className="italic font-normal text-slate-600">{t.insurances.title_accent}</span>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="text-lg text-slate-500 font-medium max-w-2xl mx-auto mb-3"
+        >
+          {t.insurances.subtitle}
+        </motion.p>
+        <p className="text-sm text-slate-400 font-medium">
+          {t.insurances.toggle_hint}
+        </p>
+      </div>
+
+      {/* Carrier grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        {INSURANCE_CARRIERS.map((carrier, i) => {
+          const isOn = selected.has(carrier.id);
+          return (
+            <motion.button
+              key={carrier.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.04 }}
+              whileHover={{ y: -4, scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={() => onToggle(carrier.id)}
+              aria-pressed={isOn}
+              type="button"
+              className={`relative group flex flex-col items-center justify-center gap-3 p-5 rounded-3xl border-2 transition-all duration-300 cursor-pointer text-center ${
+                isOn
+                  ? 'border-transparent shadow-xl'
+                  : 'bg-white border-slate-100 hover:border-slate-200 hover:shadow-md shadow-sm'
+              }`}
+              style={isOn ? { backgroundColor: carrier.color, borderColor: carrier.color } : {}}
+            >
+              {/* Animated checkmark */}
+              <AnimatePresence>
+                {isOn && (
+                  <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    className="absolute top-2.5 right-2.5 w-5 h-5 bg-white/30 rounded-full flex items-center justify-center"
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5 text-white" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Logo or initial fallback */}
+              <div className={`w-14 h-10 flex items-center justify-center transition-all ${
+                isOn ? 'opacity-90' : 'opacity-100'
+              }`}>
+                {carrier.logo ? (
+                  <img
+                    src={carrier.logo}
+                    alt={carrier.name}
+                    className={`max-w-full max-h-full object-contain transition-all ${
+                      isOn ? 'brightness-0 invert' : ''
+                    }`}
+                    onError={(e) => {
+                      // Fallback to colored initial on image error
+                      const target = e.currentTarget;
+                      target.style.display = 'none';
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.innerHTML = `<span style="color:${isOn ? '#fff' : carrier.color};font-size:1.25rem;font-weight:900;">${carrier.name.charAt(0)}</span>`;
+                      }
+                    }}
+                  />
+                ) : (
+                  <span
+                    className="text-xl font-black"
+                    style={{ color: isOn ? '#fff' : carrier.color }}
+                  >
+                    {carrier.name.charAt(0)}
+                  </span>
+                )}
+              </div>
+
+              <span className={`text-[0.7rem] font-bold leading-tight transition-colors ${
+                isOn ? 'text-white' : 'text-slate-600 group-hover:text-primary'
+              }`}>
+                {carrier.name}
+              </span>
+            </motion.button>
+          );
+        })}
+      </div>
+
+      {/* CTA to scroll to form */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.5 }}
+        className="flex justify-center mt-14"
+      >
+        <a
+          href="#contact"
+          className="inline-flex items-center gap-3 bg-primary text-white px-10 py-4 rounded-full font-bold text-sm tracking-tight shadow-xl shadow-primary/20 hover:bg-accent-red transition-all active:scale-95"
+        >
+          {t.insurances.cta}
+          <ArrowRight className="w-5 h-5" />
+        </a>
+      </motion.div>
+    </div>
+  </section>
+));
+
+const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsurances: Set<string> }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const selectedCarriers = INSURANCE_CARRIERS.filter(c => selectedInsurances.has(c.id));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -970,6 +1250,30 @@ const Contact = React.memo(({ t }: { t: any }) => {
                         />
                       </div>
                     </div>
+
+                    {/* Insurance pills summary inside the form */}
+                    <div className="rounded-2xl bg-slate-50 border border-slate-100 p-5">
+                      <p className="text-[0.6rem] font-bold uppercase tracking-widest text-slate-400 mb-3">
+                        {t.contact.insurances_label}
+                      </p>
+                      {selectedCarriers.length === 0 ? (
+                        <p className="text-slate-300 text-sm font-medium">{t.contact.insurances_none}</p>
+                      ) : (
+                        <div className="flex flex-wrap gap-2">
+                          {selectedCarriers.map(c => (
+                            <span
+                              key={c.id}
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white text-xs font-bold"
+                              style={{ backgroundColor: c.color }}
+                            >
+                              <CheckCircle2 className="w-3 h-3" />
+                              {c.name}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
                     <button
                       type="submit"
                       className="w-full bg-accent-red text-white py-6 rounded-2xl font-bold text-xl tracking-tight shadow-xl shadow-red-500/20 hover:bg-slate-900 transition-all flex items-center justify-center gap-3 active:scale-95"
@@ -1006,9 +1310,31 @@ const Contact = React.memo(({ t }: { t: any }) => {
                       transition={{ delay: 0.4 }}
                     >
                       <h3 className="text-2xl font-bold text-slate-900 mb-4 tracking-tighter">{t.contact.success_title}</h3>
-                      <p className="text-lg text-slate-600 font-medium mb-12">
+                      <p className="text-lg text-slate-600 font-medium mb-8">
                         {t.contact.success_msg}
                       </p>
+
+                      {/* Show submitted insurances in success screen */}
+                      {selectedCarriers.length > 0 && (
+                        <div className="mb-8 text-left rounded-2xl bg-slate-50 border border-slate-100 p-5">
+                          <p className="text-[0.6rem] font-bold uppercase tracking-widest text-slate-400 mb-3">
+                            {t.contact.insurances_label}
+                          </p>
+                          <div className="flex flex-wrap gap-2">
+                            {selectedCarriers.map(c => (
+                              <span
+                                key={c.id}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white text-xs font-bold"
+                                style={{ backgroundColor: c.color }}
+                              >
+                                <CheckCircle2 className="w-3 h-3" />
+                                {c.name}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
                       <button
                         onClick={() => setIsSubmitted(false)}
                         className="text-accent-red font-bold tracking-widest text-sm hover:text-primary transition-colors border-b-2 border-accent-red pb-1"
@@ -1137,21 +1463,42 @@ const Footer = React.memo(({ t, lang }: { t: any; lang: string }) => (
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lang, setLang] = useState<'en' | 'es'>('es'); // Default to Spanish (LATAM)
+  const [showLangModal, setShowLangModal] = useState(true);
+  const [selectedInsurances, setSelectedInsurances] = useState<Set<string>>(new Set());
   const t = DICTIONARY[lang];
+
+  const handleInsuranceToggle = useCallback((id: string) => {
+    setSelectedInsurances(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
 
   const handleLanguageToggle = useCallback(() => {
     setLang(prev => (prev === 'en' ? 'es' : 'en'));
   }, []);
 
+  const handleLanguageSelect = (selectedLang: 'en' | 'es') => {
+    setLang(selectedLang);
+    setShowLangModal(false);
+  };
+
+
+
   useEffect(() => {
-    if (isMenuOpen) document.body.style.overflow = 'hidden';
+    if (isMenuOpen || showLangModal) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'unset';
     return () => { document.body.style.overflow = 'unset'; };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, showLangModal]);
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background-light text-slate-900 antialiased selection:bg-accent-red selection:text-white">
       <JSONLD t={t} />
+      <AnimatePresence>
+        {showLangModal && <LanguageModal onSelect={handleLanguageSelect} />}
+      </AnimatePresence>
       <Header
         onOpenMenu={() => setIsMenuOpen(true)}
         t={t}
@@ -1169,7 +1516,8 @@ export default function App() {
         <Hero t={t} />
         <Services t={t} />
         <About t={t} />
-        <Contact t={t} />
+        <InsurancePartners t={t} selected={selectedInsurances} onToggle={handleInsuranceToggle} />
+        <Contact t={t} selectedInsurances={selectedInsurances} />
         <FAQSection t={t} />
       </main>
       <Footer t={t} lang={lang} />
