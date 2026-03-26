@@ -1234,7 +1234,7 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
               </p>
             </div>
 
-            <div className="flex-1 w-full bg-white p-12 lg:p-16 rounded-[4rem] shadow-2xl">
+            <div className="flex-1 w-full bg-white p-6 sm:p-12 lg:p-16 rounded-[4rem] shadow-2xl">
               <AnimatePresence mode="wait">
                 {!isSubmitted ? (
                   <motion.form
@@ -1251,7 +1251,7 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
                         name="fullName"
                         type="text"
                         required
-                        className="w-full bg-slate-50 border-0 border-b-2 border-slate-100 p-5 rounded-2xl focus:border-accent-red focus:ring-0 transition-all font-medium text-lg placeholder:text-slate-300"
+                        className="w-full bg-slate-50 border border-slate-100 p-6 rounded-2xl focus:border-accent-red focus:ring-0 transition-all font-bold text-lg placeholder:text-slate-300 text-primary"
                         placeholder={t.contact.placeholders.name}
                       />
                     </div>
@@ -1267,7 +1267,7 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
                           required
                           pattern="[\d\s\(\)\-\+]{7,20}"
                           placeholder={t.contact.placeholders.phone}
-                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-8 py-6 text-primary font-bold placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-accent-red/20 transition-all text-lg"
+                          className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 text-primary font-bold placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-accent-red/20 transition-all text-lg"
                         />
                       </div>
                       <div className="space-y-4">
@@ -1317,10 +1317,10 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full bg-accent-red text-white py-6 rounded-2xl font-bold text-xl tracking-tight shadow-xl shadow-red-500/20 hover:bg-slate-900 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="w-full bg-accent-red text-white py-6 px-4 rounded-2xl font-bold text-xl lg:text-2xl tracking-tight shadow-xl shadow-red-500/20 hover:bg-slate-900 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      <span>{isLoading ? (t.contact.button === 'Solicitar Llamada' ? 'Enviando...' : 'Sending...') : t.contact.button}</span>
-                      {!isLoading && <Send className="w-6 h-6" />}
+                      <span className="text-center">{isLoading ? (t.contact.button === 'Solicitar Llamada' ? 'Enviando...' : 'Sending...') : t.contact.button}</span>
+                      {!isLoading && <Send className="w-6 h-6 flex-shrink-0" />}
                     </button>
                   </motion.form>
                 ) : (
