@@ -1207,7 +1207,7 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
     };
 
     try {
-      await fetch('https://hook.us2.make.com/n93g79chougeo6hr2w8eqpzgg45brgli', {
+      await fetch(import.meta.env.VITE_MAKE_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
