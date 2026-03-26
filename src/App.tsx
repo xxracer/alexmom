@@ -9,7 +9,7 @@
  */
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { ShieldPlus, Phone, Cake, ClipboardCheck, Pill, ArrowRight, Send, Mail, Globe, MapPin, Calendar, Menu, X, CheckCircle2, ChevronDown } from 'lucide-react';
+import { ShieldPlus, Phone, Cake, ClipboardCheck, Pill, ArrowRight, Send, Mail, Globe, Calendar, Menu, X, CheckCircle2, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 
 const DICTIONARY = {
@@ -25,18 +25,18 @@ const DICTIONARY = {
       title: 'Your Trusted Medicare Broker',
       subtitle: 'Simplifying your Medicare choices with 11 years of dedicated experience. We help you to find the personalized coverage you truly deserve.',
       cta1: 'Free Consultation',
-      cta2: 'Talk to an Expert',
+      cta2: 'Talk to ME',
       alely_alt: 'Alely Medrano, Licensed Medicare Broker providing expert 2026/2027 guidance',
     },
     services: {
       title: 'Precision Medicare',
       title_accent: 'Advisory 2026',
-      subtitle: 'Don\'t let 2026 changes catch you off guard. We provide surgical analysis of your health coverage options.',
+      subtitle: 'Don\'t let 2026 changes catch you off guard. We provide analysis of your health coverage options and what is most important for YOU. Take advantage of benefits you would actually use.',
       scroll: 'Discover 2026 Options',
       items: [
         {
-          title: "The 2026 Roadmap",
-          desc: "Major changes are active for 2026. We help you navigate the $2,100 Part D cap and the expansion of GLP-1 weight-loss drug coverage."
+          title: "Expert Medicare Guidance",
+          desc: "Whether you're Dual Eligible, choosing Advantage, or exploring Supplement Plans — I will analyze and give you a complete picture of what each option looks like."
         },
         {
           title: "Advantage Optimization",
@@ -132,18 +132,18 @@ const DICTIONARY = {
       title: 'Tu Asesora de Confianza de Medicare',
       subtitle: 'Simplificando tus opciones de Medicare con 11 años de experiencia dedicada. Te ayudamos a encontrar la cobertura personalizada que realmente mereces.',
       cta1: 'Consulta Gratuita',
-      cta2: 'Habla con un Experto',
+      cta2: 'Habla Conmigo',
       alely_alt: 'Alely Medrano, Asesora de Medicare Licenciada brindando guía experta para 2026/2027',
     },
     services: {
       title: 'Asesoría de Medicare',
       title_accent: 'de Precisión 2026',
-      subtitle: 'No dejes que los cambios de 2026 te tomen por sorpresa. Brindamos un análisis quirúrgico de tus opciones de cobertura.',
+      subtitle: 'No dejes que los cambios de 2026 te tomen por sorpresa. Te brindamos un análisis de tus opciones de cobertura de salud y lo que es más importante para TI. Aprovecha los beneficios que realmente usarías.',
       scroll: 'Descubre Opciones 2026',
       items: [
         {
-          title: "Hoja de Ruta 2026",
-          desc: "Los cambios importantes están activos para 2026. Te ayudamos a navegar el límite de $2,100 de la Parte D y los nuevos precios negociados."
+          title: "Guía Experta de Medicare",
+          desc: "Ya seas Dual Elegible, estés eligiendo Advantage o explorando planes Suplementarios — analizaré y te daré una imagen completa de cómo se ve cada opción."
         },
         {
           title: "Optimización Advantage",
@@ -230,9 +230,8 @@ const DICTIONARY = {
 };
 
 const CONTACT_INFO = {
-  address: "123 Professional Dr, Suite 400\nMain City, ST 12345",
-  phone: "(555) 000-0000",
-  email: "hello@alelymedrano.com",
+  phone: "(281) 814-9431",
+  email: "alelyhm@outlook.com",
   hours: "Mon-Fri, 9am - 5pm"
 };
 
@@ -530,7 +529,7 @@ const JSONLD = ({ t }: { t: any }) => {
         "longitude": -74.0060
       },
       "url": "https://alelymedrano.com",
-      "telephone": "+15550000000"
+      "telephone": "+12818149431"
     };
 
     const addSchema = (schema: any, id: string) => {
@@ -618,7 +617,7 @@ const Header = React.memo(({ onOpenMenu, t, onLanguageToggle, lang }: { onOpenMe
         <motion.div style={{ height: headerHeight }} className="flex items-center justify-between">
           <a href="#" className="flex items-center gap-2 sm:gap-3 group transition-transform hover:scale-[1.02] active:scale-95" aria-label="Alely Medrano Home">
             <img
-              src="https://static.wixstatic.com/media/c5947c_15370a549d404494b4a4100f16cd538a~mv2.png/v1/fill/w_200,h_112,al_c,q_85/logo.png"
+              src="https://static.wixstatic.com/media/c5947c_15370a549d404494b4a4100f16cd538a~mv2.png"
               alt="Alely Medrano Logo"
               className="h-8 sm:h-9 w-auto"
               width={73}
@@ -780,7 +779,7 @@ const Hero = React.memo(({ t }: { t: any }) => (
         >
           <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-[0_48px_96px_-12px_rgba(0,0,0,0.15)] border-[0.75rem] border-white aspect-portrait rotate-1 hover:rotate-0 transition-transform duration-700">
             <LazyImage
-              src="https://static.wixstatic.com/media/c5947c_72379b8c01e94d3085ab7e7740d0b557~mv2.jpg/v1/fill/w_1000,h_1300,al_c,q_80/hero.jpg"
+              src="https://static.wixstatic.com/media/c5947c_34978e684911475fa14af409bad19ee4~mv2.jpg"
               alt={t.hero.alely_alt}
               width={500}
               height={700}
@@ -951,7 +950,7 @@ const About = React.memo(({ t }: { t: any }) => {
               <div className="flex items-center gap-6">
                 <div className="w-20 h-20 rounded-full bg-slate-100 overflow-hidden border-4 border-white shadow-xl">
                   <LazyImage
-                    src="https://static.wixstatic.com/media/c5947c_eca9682531604a808e00171a4f009e46~mv2.jpg/v1/fill/w_200,h_200,al_c,q_80/avatar.jpg"
+                    src="https://static.wixstatic.com/media/c5947c_34978e684911475fa14af409bad19ee4~mv2.jpg"
                     alt={t.about.name}
                     width={100}
                     height={100}
@@ -962,6 +961,14 @@ const About = React.memo(({ t }: { t: any }) => {
                   <div className="flex items-center gap-4">
                     <p className="text-slate-400 font-semibold uppercase tracking-widest text-[0.65rem] mt-1">{t.about.role}</p>
                     <Signature />
+                  </div>
+                  <div className="mt-4 flex items-center gap-4">
+                    <img
+                      src="https://static.wixstatic.com/media/c5947c_8e2df9a792dc43838f96239c6ac471ee~mv2.png"
+                      alt="UnitedHealthcare Gold Premier Producer since 2020"
+                      className="h-14 w-auto"
+                    />
+                    <span className="text-[0.65rem] font-bold uppercase tracking-widest text-amber-700">Gold Premier Producer<br/>since 2020</span>
                   </div>
                 </div>
               </div>
@@ -976,63 +983,63 @@ const About = React.memo(({ t }: { t: any }) => {
 const INSURANCE_CARRIERS = [
   {
     id: 'humana', name: 'Humana', color: '#007D69',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Humana_logo.svg/320px-Humana_logo.svg.png',
+    logo: '/logos/humana.svg',
   },
   {
     id: 'devoted', name: 'Devoted Health', color: '#E63946',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Devoted_Health_logo.svg/320px-Devoted_Health_logo.svg.png',
+    logo: 'https://media.licdn.com/dms/image/v2/C4E0BAQFDL4E2zOPw9w/company-logo_200_200/company-logo_200_200/0/1631318524176?e=2147483647&v=beta&t=hfCxgxqVzl4eH3W-hmIXk4w1DYjpI9WZg-tiU0a4xuY',
   },
   {
     id: 'bcbs', name: 'BlueCross BlueShield', color: '#003087',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Blue_Cross_Blue_Shield_Association_logo.svg/320px-Blue_Cross_Blue_Shield_Association_logo.svg.png',
+    logo: '/logos/bcbs.svg',
   },
   {
     id: 'memorial', name: 'Memorial Hermann', color: '#6B21A8',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Memorial_Hermann_Health_System_logo.svg/320px-Memorial_Hermann_Health_System_logo.svg.png',
+    logo: '/logos/memorial.png',
   },
   {
     id: 'ncl', name: 'NCL Health', color: '#7C3AED',
-    logo: null,
+    logo: '/logos/ncl.svg',
   },
   {
     id: 'scan', name: 'SCAN Health Plan', color: '#065F46',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/SCAN_Health_Plan_logo.svg/320px-SCAN_Health_Plan_logo.svg.png',
+    logo: 'https://scan-q-002.sitecorecontenthub.cloud/api/public/content/scan_logo.png?v=545ec4d8',
   },
   {
     id: 'molina', name: 'Molina Healthcare', color: '#15803D',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Molina_Healthcare_logo.svg/320px-Molina_Healthcare_logo.svg.png',
+    logo: '/logos/molina.svg',
   },
   {
     id: 'wellpoint', name: 'Wellpoint', color: '#1D4ED8',
-    logo: null,
+    logo: '/logos/wellpoint.svg',
   },
   {
     id: 'aetna', name: 'Aetna', color: '#7E1D3F',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Aetna_logo.svg/320px-Aetna_logo.svg.png',
+    logo: '/logos/aetna.svg',
   },
   {
     id: 'cigna', name: 'Cigna', color: '#1E3A5F',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Cigna_logo.svg/320px-Cigna_logo.svg.png',
+    logo: '/logos/cigna.svg',
   },
   {
     id: 'verda', name: 'Verda Healthcare', color: '#4D7C0F',
-    logo: null,
+    logo: 'https://verdahealthcare.com/wp-content/uploads/2025/05/Verda-Healthcare-Full-Color-H.svg',
   },
   {
     id: 'community', name: 'Community Health', color: '#92400E',
-    logo: null,
+    logo: 'https://www.communityhealthchoice.org/wp-content/uploads/2020/07/CHC_Logo_150x59_Header-1.png',
   },
   {
     id: 'kelsey', name: 'Kelsey-Seybold', color: '#0F172A',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Kelsey-Seybold_Clinic_logo.svg/320px-Kelsey-Seybold_Clinic_logo.svg.png',
+    logo: '/logos/kelsey.svg',
   },
   {
     id: 'wellcare', name: 'WellCare', color: '#0369A1',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/WellCare_logo.svg/320px-WellCare_logo.svg.png',
+    logo: '/logos/wellcare.svg',
   },
   {
     id: 'united', name: 'UnitedHealthcare', color: '#0077C8',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/UnitedHealth_Group_logo.svg/320px-UnitedHealth_Group_logo.svg.png',
+    logo: '/logos/united.svg',
   },
 ];
 
@@ -1125,6 +1132,8 @@ const InsurancePartners = React.memo(({ t, selected, onToggle }: {
                   <img
                     src={carrier.logo}
                     alt={carrier.name}
+                    referrerPolicy="no-referrer"
+                    crossOrigin="anonymous"
                     className={`max-w-full max-h-full object-contain transition-all ${
                       isOn ? 'brightness-0 invert' : ''
                     }`}
@@ -1180,11 +1189,35 @@ const InsurancePartners = React.memo(({ t, selected, onToggle }: {
 
 const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsurances: Set<string> }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const selectedCarriers = INSURANCE_CARRIERS.filter(c => selectedInsurances.has(c.id));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsLoading(true);
+    setError(null);
+
+    const form = e.currentTarget;
+    const formData = {
+      name: (form.elements.namedItem('fullName') as HTMLInputElement).value,
+      phone: (form.elements.namedItem('phone') as HTMLInputElement).value,
+      zip: (form.elements.namedItem('zip') as HTMLInputElement).value,
+      insurances: selectedCarriers.map(c => c.name),
+    };
+
+    try {
+      await fetch('https://hook.us2.make.com/n93g79chougeo6hr2w8eqpzgg45brgli', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      setIsSubmitted(true);
+    } catch (err) {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -1215,6 +1248,7 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
                     <div>
                       <label className="block text-[0.65rem] font-bold uppercase tracking-widest text-slate-400 mb-3 ml-2">{t.contact.labels.name}</label>
                       <input
+                        name="fullName"
                         type="text"
                         required
                         className="w-full bg-slate-50 border-0 border-b-2 border-slate-100 p-5 rounded-2xl focus:border-accent-red focus:ring-0 transition-all font-medium text-lg placeholder:text-slate-300"
@@ -1228,6 +1262,7 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
                         </label>
                         <input
                           id="phone"
+                          name="phone"
                           type="tel"
                           required
                           pattern="[\d\s\(\)\-\+]{7,20}"
@@ -1241,6 +1276,7 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
                         </label>
                         <input
                           id="zip-code"
+                          name="zip"
                           type="text"
                           required
                           minLength={5}
@@ -1274,12 +1310,17 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
                       )}
                     </div>
 
+                    {error && (
+                      <p className="text-red-500 text-sm font-medium text-center">{error}</p>
+                    )}
+
                     <button
                       type="submit"
-                      className="w-full bg-accent-red text-white py-6 rounded-2xl font-bold text-xl tracking-tight shadow-xl shadow-red-500/20 hover:bg-slate-900 transition-all flex items-center justify-center gap-3 active:scale-95"
+                      disabled={isLoading}
+                      className="w-full bg-accent-red text-white py-6 rounded-2xl font-bold text-xl tracking-tight shadow-xl shadow-red-500/20 hover:bg-slate-900 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      <span>{t.contact.button}</span>
-                      <Send className="w-6 h-6" />
+                      <span>{isLoading ? (t.contact.button === 'Solicitar Llamada' ? 'Enviando...' : 'Sending...') : t.contact.button}</span>
+                      {!isLoading && <Send className="w-6 h-6" />}
                     </button>
                   </motion.form>
                 ) : (
@@ -1384,7 +1425,7 @@ const Footer = React.memo(({ t, lang }: { t: any; lang: string }) => (
         <div className="lg:col-span-1">
           <a href="#" className="flex items-center gap-3 mb-10 group transition-transform hover:scale-[1.02] active:scale-95">
             <img
-              src="https://static.wixstatic.com/media/c5947c_15370a549d404494b4a4100f16cd538a~mv2.png/v1/fill/w_200,h_112,al_c,q_85/logo.png"
+              src="https://static.wixstatic.com/media/c5947c_15370a549d404494b4a4100f16cd538a~mv2.png"
               alt="Alely Medrano Logo"
               className="h-10 w-auto"
               width={73}
@@ -1414,10 +1455,6 @@ const Footer = React.memo(({ t, lang }: { t: any; lang: string }) => (
             <li className="flex items-start gap-4 group">
               <Phone className="w-5 h-5 text-accent-red mt-1 group-hover:scale-110 transition-transform" />
               <a href={`tel:${CONTACT_INFO.phone.replace(/\D/g, '')}`} className="text-slate-500 font-medium hover:text-primary transition-colors">{CONTACT_INFO.phone}</a>
-            </li>
-            <li className="flex items-start gap-4">
-              <MapPin className="w-5 h-5 text-accent-red mt-1" />
-              <span className="text-slate-500 font-medium whitespace-pre-line">{CONTACT_INFO.address}</span>
             </li>
           </ul>
         </div>
