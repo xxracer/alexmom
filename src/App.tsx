@@ -97,11 +97,19 @@ const DICTIONARY = {
         zip: '90210',
       },
       button: 'Request Call Back',
+      sending: 'Sending...',
       success_title: 'Request Received!',
       success_msg: 'Thank you for reaching out. Alely will contact you personally within 24 hours.',
       success_button: 'Send Another Request',
       insurances_label: 'Insurance Plans Selected',
       insurances_none: 'No insurance plan selected',
+      errors: {
+        name: 'Please enter a valid full name (at least 2 characters).',
+        phone: 'Please enter a valid US phone number with at least 10 digits.',
+        zip: 'Please enter a valid 5-digit US ZIP code.',
+        general: 'Something went wrong. Please try again.',
+        not_usa: 'This service is only available within the United States.',
+      },
     },
     insurances: {
       badge: 'Accepted Insurance Plans',
@@ -204,11 +212,19 @@ const DICTIONARY = {
         zip: '90210',
       },
       button: 'Solicitar Llamada',
+      sending: 'Enviando...',
       success_title: '¡Solicitud Recibida!',
       success_msg: 'Gracias por contactarnos. Alely se comunicará contigo personalmente en menos de 24 horas.',
       success_button: 'Enviar otra solicitud',
       insurances_label: 'Planes de Seguro Seleccionados',
       insurances_none: 'Ningún plan de seguro seleccionado',
+      errors: {
+        name: 'Por favor ingresa un nombre completo válido (mínimo 2 caracteres).',
+        phone: 'Por favor ingresa un número de teléfono válido de EE. UU. con al menos 10 dígitos.',
+        zip: 'Por favor ingresa un código postal válido de 5 dígitos.',
+        general: 'Algo salió mal. Por favor intenta de nuevo.',
+        not_usa: 'Este servicio solo está disponible dentro de los Estados Unidos.',
+      },
     },
     insurances: {
       badge: 'Planes de Seguro Aceptados',
@@ -1191,30 +1207,74 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [touched, setTouched] = useState({ name: false, phone: false, zip: false });
+  const [formData, setFormData] = useState({ name: '', phone: '', zip: '', website: '' });
   const selectedCarriers = INSURANCE_CARRIERS.filter(c => selectedInsurances.has(c.id));
+
+  const validate = useCallback(() => {
+    const digits = formData.phone.replace(/\D/g, '');
+    return {
+      name: /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,80}$/.test(formData.name.trim()),
+      phone: digits.length >= 10 && digits.length <= 15,
+      zip: /^\d{5}(-\d{4})?$/.test(formData.zip.trim()),
+    };
+  }, [formData]);
+
+  const errors = validate();
+  const isFormValid = errors.name && errors.phone && errors.zip;
+
+  const handleChange = (field: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({ ...prev, [field]: e.target.value }));
+  };
+
+  const handleBlur = (field: keyof typeof touched) => () => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
+    setTouched({ name: true, phone: true, zip: true });
     setError(null);
 
-    const form = e.currentTarget;
-    const formData = {
-      name: (form.elements.namedItem('fullName') as HTMLInputElement).value,
-      phone: (form.elements.namedItem('phone') as HTMLInputElement).value,
-      zip: (form.elements.namedItem('zip') as HTMLInputElement).value,
+    if (!isFormValid || formData.website) {
+      setError(t.contact.errors.general);
+      return;
+    }
+
+    setIsLoading(true);
+
+    const payload = {
+      name: formData.name.trim(),
+      phone: formData.phone.trim(),
+      zip: formData.zip.trim(),
       insurances: selectedCarriers.map(c => c.name),
+      website: formData.website,
     };
 
     try {
-      await fetch(import.meta.env.VITE_MAKE_WEBHOOK_URL, {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({ error: 'general' }));
+        if (data.error === 'not_usa') {
+          setError(t.contact.errors.not_usa);
+        } else if (data.error === 'invalid_data') {
+          setError(t.contact.errors.general);
+        } else {
+          setError(t.contact.errors.general);
+        }
+        return;
+      }
+
       setIsSubmitted(true);
+      setFormData({ name: '', phone: '', zip: '', website: '' });
+      setTouched({ name: false, phone: false, zip: false });
     } catch (err) {
-      setError('Something went wrong. Please try again.');
+      setError(t.contact.errors.general);
     } finally {
       setIsLoading(false);
     }
@@ -1251,9 +1311,16 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
                         name="fullName"
                         type="text"
                         required
+                        autoComplete="name"
+                        value={formData.name}
+                        onChange={handleChange('name')}
+                        onBlur={handleBlur('name')}
                         className="w-full bg-slate-50 border border-slate-100 p-6 rounded-2xl focus:border-accent-red focus:ring-0 transition-all font-bold text-lg placeholder:text-slate-300 text-primary"
                         placeholder={t.contact.placeholders.name}
                       />
+                      {touched.name && !errors.name && (
+                        <p className="text-red-500 text-xs font-medium mt-2 ml-2">{t.contact.errors.name}</p>
+                      )}
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-4">
@@ -1265,10 +1332,18 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
                           name="phone"
                           type="tel"
                           required
+                          autoComplete="tel"
+                          inputMode="tel"
                           pattern="[\d\s\(\)\-\+]{7,20}"
                           placeholder={t.contact.placeholders.phone}
+                          value={formData.phone}
+                          onChange={handleChange('phone')}
+                          onBlur={handleBlur('phone')}
                           className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 text-primary font-bold placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-accent-red/20 transition-all text-lg"
                         />
+                        {touched.phone && !errors.phone && (
+                          <p className="text-red-500 text-xs font-medium ml-2">{t.contact.errors.phone}</p>
+                        )}
                       </div>
                       <div className="space-y-4">
                         <label className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-800 ml-2" htmlFor="zip-code">
@@ -1279,12 +1354,34 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
                           name="zip"
                           type="text"
                           required
+                          autoComplete="postal-code"
+                          inputMode="numeric"
                           minLength={5}
                           maxLength={10}
                           placeholder={t.contact.placeholders.zip}
+                          value={formData.zip}
+                          onChange={handleChange('zip')}
+                          onBlur={handleBlur('zip')}
                           className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-8 py-6 text-primary font-bold placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-accent-red/20 transition-all text-lg"
                         />
+                        {touched.zip && !errors.zip && (
+                          <p className="text-red-500 text-xs font-medium ml-2">{t.contact.errors.zip}</p>
+                        )}
                       </div>
+                    </div>
+
+                    {/* Honeypot: hidden field to catch spam bots */}
+                    <div className="absolute left-[-9999px] top-[-9999px]">
+                      <label htmlFor="website">Website</label>
+                      <input
+                        id="website"
+                        name="website"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={formData.website}
+                        onChange={handleChange('website')}
+                      />
                     </div>
 
                     {/* Insurance pills summary inside the form */}
@@ -1319,7 +1416,7 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
                       disabled={isLoading}
                       className="w-full bg-accent-red text-white py-6 px-4 rounded-2xl font-bold text-xl lg:text-2xl tracking-tight shadow-xl shadow-red-500/20 hover:bg-slate-900 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      <span className="text-center">{isLoading ? (t.contact.button === 'Solicitar Llamada' ? 'Enviando...' : 'Sending...') : t.contact.button}</span>
+                      <span className="text-center">{isLoading ? t.contact.sending : t.contact.button}</span>
                       {!isLoading && <Send className="w-6 h-6 flex-shrink-0" />}
                     </button>
                   </motion.form>
@@ -1377,7 +1474,12 @@ const Contact = React.memo(({ t, selectedInsurances }: { t: any; selectedInsuran
                       )}
 
                       <button
-                        onClick={() => setIsSubmitted(false)}
+                        onClick={() => {
+                          setIsSubmitted(false);
+                          setFormData({ name: '', phone: '', zip: '', website: '' });
+                          setTouched({ name: false, phone: false, zip: false });
+                          setError(null);
+                        }}
                         className="text-accent-red font-bold tracking-widest text-sm hover:text-primary transition-colors border-b-2 border-accent-red pb-1"
                       >
                         {t.contact.success_button}
