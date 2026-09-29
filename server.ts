@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { REGIONS } from './src/regions';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -125,6 +126,24 @@ app.post('/api/contact', async (req: Request, res: Response) => {
 // Health check.
 app.get('/api/health', (_req: Request, res: Response) => {
   res.json({ ok: true });
+});
+
+// The build prerenders every language (dist/index.html EN, dist/es/index.html
+// ES — see scripts/prerender.mjs), so Google and the AI crawlers that don't
+// run JavaScript get full content straight from the static files.
+
+// Normalize the non-canonical URL forms onto their prerendered paths.
+// Region pages come from src/regions.ts (same slugs in EN /es/<slug>/ and
+// Spanish <slug>/).
+const REGION_SLUGS = REGIONS.map((r) => r.slug);
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (req.path === '/es') return res.redirect(301, '/es/');
+  if (req.path === '/index.html') return res.redirect(301, '/');
+  for (const slug of REGION_SLUGS) {
+    if (req.path === `/${slug}`) return res.redirect(301, `/${slug}/`);
+    if (req.path === `/es/${slug}`) return res.redirect(301, `/es/${slug}/`);
+  }
+  next();
 });
 
 // Serve the Vite production build.

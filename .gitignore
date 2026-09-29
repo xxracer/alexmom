@@ -1,8 +1,17 @@
 node_modules/
 build/
 dist/
+.ssg-tmp/
 coverage/
 .DS_Store
 *.log
 .env*
 !.env.example
+
+# Keyword research — plan de trabajo local, nunca se publica
+keyword-research/
+
+# Capturas y artefactos del navegador (Playwright), solo debugging local
+.playwright-mcp/
+
+# Servidor de desarrollo local (build intermedio del prerender)

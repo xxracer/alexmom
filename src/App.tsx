@@ -11,8 +11,9 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { ShieldPlus, Phone, Cake, ClipboardCheck, Pill, ArrowRight, Send, Mail, Globe, Calendar, Menu, X, CheckCircle2, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
+import { META } from './seo';
 
-const DICTIONARY = {
+export const DICTIONARY = {
   en: {
     nav: {
       home: 'Home',
@@ -80,6 +81,26 @@ const DICTIONARY = {
         {
           q: "When does the next enrollment cycle for 2027 start?",
           a: "Annual Enrollment for 2027 will begin on October 15 and run through December 7, 2026. This is when you should review the new 2027 plan benefits."
+        },
+        {
+          q: "What is the difference between Medicare Advantage and a Medigap supplement?",
+          a: "Medicare Advantage is an all-in-one private plan with its own copays and doctor network. A Medigap supplement works together with Original Medicare to fill its gaps — usually a higher monthly premium, but broader access to providers. I walk you through both so the choice matches your doctors and your budget."
+        },
+        {
+          q: "Does Medicare cover dental, vision and hearing?",
+          a: "Not Original Medicare — routine dental, eye exams and hearing aids are generally not covered. Many Medicare Advantage plans do include them, but the amounts and networks vary widely. I compare which plans in your ZIP code include the benefits you would actually use."
+        },
+        {
+          q: "Can I change my Advantage plan after March 31?",
+          a: "Outside the enrollment windows your plan is normally locked until the next Annual Enrollment. Still, qualifying life events — moving, losing employer coverage, changes with Medicaid — open a Special Enrollment Period. That is exactly why reviewing your situation is free and worth doing."
+        },
+        {
+          q: "I still work at 65 and have employer coverage. Do I need Medicare now?",
+          a: "It depends on the size of your employer and the order in which coverage pays. Enrolling in the wrong order can trigger a Part B penalty that lasts for life. Bring your employer plan details to a free review before your 65th birthday and we time it correctly."
+        },
+        {
+          q: "How much will my Part B premium cost in 2026?",
+          a: "It depends on your income (the IRMAA adjustment) and how long you or your spouse paid Medicare taxes. Instead of guessing from a chart, bring your situation to a free review — you will see your real number and whether you qualify for programs that lower it."
         }
       ]
     },
@@ -123,6 +144,16 @@ const DICTIONARY = {
       desc: 'Alely Medrano: Leading independent Medicare Broker specializing in Advantage, Part D, and Supplemental plans since 2015.',
       contact_title: 'Direct Advocacy',
       nav_title: 'Quick Access',
+      regions_title: 'Texas Regions We Serve',
+      regions: [
+        { name: 'Houston area', href: '/houston/' },
+        { name: 'Dallas–Fort Worth', href: '/dallas-fort-worth/' },
+        { name: 'San Antonio', href: '/san-antonio/' },
+        { name: 'Austin & Central TX', href: '/central-texas/' },
+        { name: 'Rio Grande Valley', href: '/rio-grande-valley/' },
+        { name: 'El Paso & West TX', href: '/west-texas/' },
+        { name: 'East Texas', href: '/east-texas/' },
+      ],
       cms_disclaimer: 'CMS Required Disclaimer: We do not offer every plan available in your area. Any information we provide is limited to those plans we do offer in your area. Please contact Medicare.gov or 1-800-MEDICARE to get information on all of your options.',
       copyright: '© 2026 Alely Medrano Medicare Solutions. All rights reserved.',
       endorsement: 'Not connected with or endorsed by the U.S. government or the federal Medicare program.',
@@ -195,6 +226,26 @@ const DICTIONARY = {
         {
           q: "¿Cuándo comienza el próximo ciclo de inscripción para 2027?",
           a: "La Inscripción Anual para 2027 comenzará el 15 de octubre y terminará el 7 de diciembre de 2026. Es el momento de revisar los nuevos beneficios del año 2027."
+        },
+        {
+          q: "¿Cuál es la diferencia entre Medicare Advantage y un suplemento (Medigap)?",
+          a: "Medicare Advantage es un plan privado todo en uno, con sus copagos y su propia red de doctores. Un suplemento Medigap trabaja junto con Medicare original para cubrir lo que este deja abierto — normalmente prima mensual más alta, pero más libertad para elegir doctores. Conversamos los dos caminos para que elijas según tus médicos y tu bolsillo."
+        },
+        {
+          q: "¿Cubre Medicare dentista, lentes y audífonos?",
+          a: "Medicare original, en general, no cubre rutinas de dentista, vista ni audífonos. Muchos planes de Advantage sí los incluyen — con montos y redes distintas. Comparo los planes de tu código postal y te digo cuáles incluyen lo que tú sí usarías."
+        },
+        {
+          q: "¿Puedo cambiar de plan de Advantage después del 31 de marzo?",
+          a: "Fuera de las ventanas de inscripción normalmente tu plan queda fijo hasta la próxima Inscripción Anual. Pero eventos de la vida — una mudanza, perder cobertura de tu empleador, cambios con Medicaid — abren un Periodo Especial de Inscripción. Por eso la revisión con la asesora es gratis y nunca está de más."
+        },
+        {
+          q: "Sigo trabajando a los 65 y tengo cobertura de mi empleador, ¿ya necesito Medicare?",
+          a: "Depende del tamaño de la empresa y del orden en que cada cobertura paga. Inscribirse en el orden equivocado puede crear una multa de Parte B que dura toda la vida. Trae los detalles de tu plan y armamos tu calendario con tiempo, sin costo.",
+        },
+        {
+          q: "¿Cuánto voy a pagar por la Parte B en 2026?",
+          a: "Depende de tu ingreso (el ajuste IRMAA) y de cuántos años pagaste impuestos de Medicare tú o tu cónyuge. En vez de adivinar con tablas, hagamos una revisión gratuita con tu caso real y verás tu número exacto."
         }
       ]
     },
@@ -238,6 +289,16 @@ const DICTIONARY = {
       desc: 'Alely Medrano: Asesora independiente líder en Medicare, especializada en planes Advantage, Parte D y Suplementarios desde 2015.',
       contact_title: 'Defensoría Directa',
       nav_title: 'Acceso Rápido',
+      regions_title: 'Regiones de Texas que Atendemos',
+      regions: [
+        { name: 'Área de Houston', href: '/es/houston/' },
+        { name: 'Dallas–Fort Worth', href: '/es/dallas-fort-worth/' },
+        { name: 'San Antonio', href: '/es/san-antonio/' },
+        { name: 'Austin y Texas Central', href: '/es/central-texas/' },
+        { name: 'Valle del Río Grande', href: '/es/rio-grande-valley/' },
+        { name: 'El Paso y el Oeste', href: '/es/west-texas/' },
+        { name: 'Este de Texas', href: '/es/east-texas/' },
+      ],
       cms_disclaimer: 'Descargo de responsabilidad requerido por CMS: No ofrecemos todos los planes disponibles en su área. Cualquier información que proporcionemos se limita a los planes que sí ofrecemos en su área. Comuníquese con Medicare.gov o al 1-800-MEDICARE para obtener información sobre todas sus opciones.',
       copyright: '© 2026 Alely Medrano Medicare Solutions. Todos los derechos reservados.',
       endorsement: 'No estamos conectados ni respaldados por el gobierno de los EE. UU. ni por el programa federal de Medicare.',
@@ -257,7 +318,8 @@ const LazyImage = ({
   className,
   aspect = "aspect-auto",
   width,
-  height
+  height,
+  eager = false
 }: {
   src: string;
   alt: string;
@@ -265,6 +327,7 @@ const LazyImage = ({
   aspect?: string;
   width?: number;
   height?: number;
+  eager?: boolean;
 }) => (
   <div className={`relative overflow-hidden bg-slate-100 dark:bg-slate-800 ${aspect} ${className}`}>
     <img
@@ -272,7 +335,7 @@ const LazyImage = ({
       alt={alt}
       width={width}
       height={height}
-      loading="lazy"
+      loading={eager ? 'eager' : 'lazy'}
       decoding="async"
       className="w-full h-full object-cover transition-opacity duration-500 opacity-0"
       onLoad={(e) => (e.currentTarget.classList.remove('opacity-0'), e.currentTarget.classList.add('opacity-100'))}
@@ -511,66 +574,6 @@ const FloatingCTA = ({ t }: { t: any }) => {
   );
 };
 
-const JSONLD = ({ t }: { t: any }) => {
-  useEffect(() => {
-    const faqSchema = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": t.faq.items.map((item: any) => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.a
-        }
-      }))
-    };
-
-    const businessSchema = {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Alely Medrano Medicare Solutions",
-      "image": "https://static.wixstatic.com/media/c5947c_0a07e47683704838b0f81d898569c737~mv2.jpg",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "123 Professional Dr, Suite 400",
-        "addressLocality": "Main City",
-        "addressRegion": "ST",
-        "postalCode": "12345",
-        "addressCountry": "US"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 40.7128,
-        "longitude": -74.0060
-      },
-      "url": "https://alelymedrano.com",
-      "telephone": "+12818149431"
-    };
-
-    const addSchema = (schema: any, id: string) => {
-      let script = document.getElementById(id) as HTMLScriptElement;
-      if (!script) {
-        script = document.createElement('script');
-        script.id = id;
-        script.type = 'application/ld+json';
-        document.head.appendChild(script);
-      }
-      script.text = JSON.stringify(schema);
-    };
-
-    addSchema(faqSchema, 'faq-schema');
-    addSchema(businessSchema, 'business-schema');
-
-    return () => {
-      document.getElementById('faq-schema')?.remove();
-      document.getElementById('business-schema')?.remove();
-    };
-  }, [t]);
-
-  return null;
-};
-
 const MobileMenu = ({ isOpen, onClose, t, onLanguageToggle, lang }: { isOpen: boolean; onClose: () => void; t: any; onLanguageToggle: () => void; lang: string }) => (
   <AnimatePresence>
     {isOpen && (
@@ -799,6 +802,7 @@ const Hero = React.memo(({ t }: { t: any }) => (
               alt={t.hero.alely_alt}
               width={500}
               height={700}
+              eager
             />
           </div>
           {/* Accent decoration */}
@@ -1568,6 +1572,16 @@ const Footer = React.memo(({ t, lang }: { t: any; lang: string }) => (
             <li><a href="#services" className="text-slate-500 font-medium hover:text-accent-red transition-colors text-sm tracking-tight">{t.nav.services}</a></li>
             <li><a href="#contact" className="text-slate-500 font-medium hover:text-accent-red transition-colors text-sm tracking-tight">{t.nav.contact}</a></li>
           </ul>
+          <h5 className="text-[0.65rem] font-bold uppercase tracking-widest text-primary mt-10 mb-6">{t.footer.regions_title}</h5>
+          <ul className="space-y-3">
+            {t.footer.regions.map((region) => (
+              <li key={region.href}>
+                <a href={region.href} className="text-slate-500 font-medium hover:text-accent-red transition-colors text-sm tracking-tight inline-flex items-center gap-2">
+                  <ArrowRight className="w-3.5 h-3.5 text-accent-red" /> {region.name}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="bg-white p-8 rounded-[3rem] shadow-sm">
@@ -1599,10 +1613,10 @@ const Footer = React.memo(({ t, lang }: { t: any; lang: string }) => (
   </footer>
 ));
 
-export default function App() {
+export default function App({ initialLang }: { initialLang?: 'en' | 'es' }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [lang, setLang] = useState<'en' | 'es'>('es'); // Default to Spanish (LATAM)
-  const [showLangModal, setShowLangModal] = useState(true);
+  const [lang, setLang] = useState<'en' | 'es'>(initialLang ?? 'en');
+  const [showLangModal, setShowLangModal] = useState(false);
   const [selectedInsurances, setSelectedInsurances] = useState<Set<string>>(new Set());
   const t = DICTIONARY[lang];
 
@@ -1615,14 +1629,36 @@ export default function App() {
     });
   }, []);
 
+  const languageToUrl = (lang: 'en' | 'es') => (lang === 'en' ? '/' : '/es/');
+
   const handleLanguageToggle = useCallback(() => {
-    setLang(prev => (prev === 'en' ? 'es' : 'en'));
+    setLang(prev => {
+      const next = prev === 'en' ? 'es' : 'en';
+      history.pushState({}, '', languageToUrl(next));
+      return next;
+    });
   }, []);
 
   const handleLanguageSelect = (selectedLang: 'en' | 'es') => {
     setLang(selectedLang);
     setShowLangModal(false);
+    history.pushState({}, '', languageToUrl(selectedLang));
   };
+
+  useEffect(() => {
+    const syncLangFromPath = () =>
+      setLang(location.pathname.replace(/\/+$/, '').endsWith('/es') ? 'es' : 'en');
+    window.addEventListener('popstate', syncLangFromPath);
+    return () => window.removeEventListener('popstate', syncLangFromPath);
+  }, []);
+
+  // Keep the document head aligned when users switch language client-side.
+  useEffect(() => {
+    document.title = META[lang].title;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute('content', META[lang].description);
+  }, [lang]);
 
 
 
@@ -1634,7 +1670,6 @@ export default function App() {
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background-light text-slate-900 antialiased selection:bg-accent-red selection:text-white">
-      <JSONLD t={t} />
       <AnimatePresence>
         {showLangModal && <LanguageModal onSelect={handleLanguageSelect} />}
       </AnimatePresence>
