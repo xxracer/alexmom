@@ -15,7 +15,7 @@ const IMAGES = {
   portrait: 'https://static.wixstatic.com/media/c5947c_34978e684911475fa14af409bad19ee4~mv2.jpg',
 };
 
-const META: Record<Lang, {
+export const META: Record<Lang, {
   title: string;
   description: string;
   path: string;
