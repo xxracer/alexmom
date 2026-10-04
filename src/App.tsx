@@ -328,21 +328,33 @@ const LazyImage = ({
   width?: number;
   height?: number;
   eager?: boolean;
-}) => (
-  <div className={`relative overflow-hidden bg-slate-100 dark:bg-slate-800 ${aspect} ${className}`}>
-    <img
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      loading={eager ? 'eager' : 'lazy'}
-      decoding="async"
-      className="w-full h-full object-cover transition-opacity duration-500 opacity-0"
-      onLoad={(e) => (e.currentTarget.classList.remove('opacity-0'), e.currentTarget.classList.add('opacity-100'))}
-      referrerPolicy="no-referrer"
-    />
-  </div>
-);
+}) => {
+  const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    // Prerendered pages: images can finish loading before React hydrates,
+    // so onLoad never fires. Catch those with an explicit completeness check.
+    if (imgRef.current?.complete && (imgRef.current?.naturalWidth ?? 0) > 0) {
+      setLoaded(true);
+    }
+  }, []);
+  return (
+    <div className={`relative overflow-hidden bg-slate-100 dark:bg-slate-800 ${aspect} ${className}`}>
+      <img
+        ref={imgRef}
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        className={`w-full h-full object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        onLoad={() => setLoaded(true)}
+        referrerPolicy="no-referrer"
+      />
+    </div>
+  );
+};
 
 const Signature = () => (
   <svg
